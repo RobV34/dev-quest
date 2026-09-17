@@ -72,8 +72,7 @@
 }
 .player {
   position: absolute;
-  left: 100px;
-  bottom: 110px;
+  
 
   width: 55px;
   height: 85px;
@@ -108,23 +107,7 @@
   font-weight: bold;
 }
 
-.player.jumping {
-  animation: jump 0.5s ease-out;
-}
 
-@keyframes jump {
-  0% {
-    bottom: 110px;
-  }
-
-  50% {
-    bottom: 230px;
-  }
-
-  100% {
-    bottom: 110px;
-  }
-}
 
 /* ---------- GAME PLATFORMS ---------- */
 
@@ -215,3 +198,9 @@
   line-height: 1.5;
 }
 
+.game {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}

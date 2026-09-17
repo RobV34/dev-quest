@@ -1,5 +1,5 @@
 import './App.css'
-import Player from './components/Player'
+import Game from './components/Game'
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         </button>
       </header>
 
-      <Player />
+      <Game />
 
       <div className="platform platform-one">
   <div className="skill-pickup">
