@@ -186,6 +186,23 @@ const PORTFOLIO_X = 3500
     ]
   }
 
+  // ---------- PLAYER CONTROLS ----------
+
+  const moveLeft = () => {
+    setX((currentX) => Math.max(0, currentX - 15))
+  }
+
+  const moveRight = () => {
+    setX((currentX) => currentX + 15)
+  }
+
+  const jump = () => {
+    if (isOnGround.current) {
+      velocityY.current = JUMP_POWER
+      isOnGround.current = false
+    }
+  }
+
   // ---------- GAME LOOP ----------
 
   useEffect(() => {
@@ -195,7 +212,7 @@ const PORTFOLIO_X = 3500
         event.key === 'ArrowRight' ||
         event.key === 'd'
       ) {
-        setX((currentX) => currentX + 15)
+        moveRight()
       }
 
       // Move left
@@ -203,9 +220,7 @@ const PORTFOLIO_X = 3500
         event.key === 'ArrowLeft' ||
         event.key === 'a'
       ) {
-        setX((currentX) =>
-          Math.max(0, currentX - 15)
-        )
+        moveLeft()
       }
 
       // Jump
@@ -215,8 +230,7 @@ const PORTFOLIO_X = 3500
       ) {
         event.preventDefault()
 
-        velocityY.current = JUMP_POWER
-        isOnGround.current = false
+        jump()
       }
     }
 
@@ -444,6 +458,37 @@ if (
         x={x - cameraX}
         y={y}
       />
+
+      {/* ---------- TOUCH CONTROLS ---------- */}
+
+      <div className="touch-controls" aria-label="Game controls">
+        <button
+          type="button"
+          className="touch-control"
+          onClick={moveLeft}
+          aria-label="Move left"
+        >
+          ←
+        </button>
+
+        <button
+          type="button"
+          className="touch-control touch-jump"
+          onClick={jump}
+          aria-label="Jump"
+        >
+          JUMP
+        </button>
+
+        <button
+          type="button"
+          className="touch-control"
+          onClick={moveRight}
+          aria-label="Move right"
+        >
+          →
+        </button>
+      </div>
 
       {/* ---------- DEVELOPMENT ---------- */}
 
@@ -715,26 +760,7 @@ if (
   </div>
 )}
 
-      {/* ---------- DEBUG ---------- */}
-
-      <div
-        style={{
-          position: 'absolute',
-          top: '10px',
-          left: '10px',
-          color: 'yellow',
-          zIndex: 100,
-        }}
-      >
-        World X: {Math.round(x)}
-        {' | '}
-        Screen X: {Math.round(x - cameraX)}
-        {' | '}
-        Y: {Math.round(y)}
-        {' | '}
-        Camera: {Math.round(cameraX)}
-      </div>
-    </>
+          </>
   )
 }
 

@@ -824,3 +824,81 @@ html {
     flex-direction: column;
   }
 }
+/* ---------- MOBILE GAME CONTROLS ---------- */
+
+.touch-controls {
+  display: none;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .touch-controls {
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    z-index: 120;
+    display: flex;
+    gap: 10px;
+    transform: translateX(-50%);
+  }
+
+  .touch-control {
+    min-width: 58px;
+    min-height: 48px;
+    padding: 0 14px;
+    border: 2px solid #58f5d2;
+    background: rgba(7, 24, 47, 0.88);
+    color: #58f5d2;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .touch-jump {
+    min-width: 78px;
+    border-color: #ffd54a;
+    color: #ffd54a;
+  }
+
+  .touch-control:active {
+    transform: translateY(2px);
+  }
+}
+/* ---------- MOBILE HEADER POLISH ---------- */
+
+@media (hover: none) and (pointer: coarse) and (max-width: 600px) {
+  .game-header h1 {
+    font-size: clamp(2.2rem, 11vw, 3.4rem);
+    letter-spacing: 2px;
+  }
+
+  .game-header h2 {
+    font-size: clamp(0.9rem, 4.5vw, 1.25rem);
+    letter-spacing: 4px;
+  }
+
+  .tagline {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+  }
+
+  .start-button {
+    display: none;
+  }
+
+  .game-controls {
+    display: none;
+  }
+
+  .game-actions {
+    margin-top: 18px;
+  }
+
+  .skip-button {
+    padding: 12px 16px;
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+  }
+}
