@@ -27,6 +27,14 @@ function Game() {
   const [showScrumMessage, setShowScrumMessage] =
     useState(false)
 
+    // ---------- PROJECT MANAGEMENT STATE ----------
+
+const [projectManagementUnlocked, setProjectManagementUnlocked] =
+useState(false)
+
+const [showProjectManagementMessage, setShowProjectManagementMessage] =
+useState(false)
+
   // ---------- PHYSICS REFS ----------
 
   const yRef = useRef(110)
@@ -63,6 +71,12 @@ function Game() {
   const SCRUM_PROGRESS_X = 1085
   const SCRUM_DONE_X = 1220
 
+  // ---------- PROJECT MANAGEMENT ----------
+
+const PM_PLAN_X = 1650
+const PM_BUILD_X = 1900
+const PM_DELIVER_X = 2150
+
   // ---------- PLATFORM DATA ----------
 
   const getPlatforms = () => {
@@ -90,6 +104,27 @@ function Game() {
         x: SCRUM_DONE_X,
         width: 115,
         y: 300,
+      },
+  
+      // ---------- PROJECT MANAGEMENT ----------
+  
+      {
+        name: 'plan',
+        x: PM_PLAN_X,
+        width: 150,
+        y: 185,
+      },
+      {
+        name: 'build',
+        x: PM_BUILD_X,
+        width: 150,
+        y: 185,
+      },
+      {
+        name: 'deliver',
+        x: PM_DELIVER_X,
+        width: 150,
+        y: 185,
       },
     ]
   }
@@ -207,10 +242,25 @@ function Game() {
               setShowScrumMessage(false)
             }, 2000)
           }
+          // ---------- PROJECT MANAGEMENT COMPLETE ----------
+
+if (
+    platform.name === 'deliver' &&
+    !projectManagementUnlocked
+  ) {
+    setProjectManagementUnlocked(true)
+    setShowProjectManagementMessage(true)
+  
+    setTimeout(() => {
+      setShowProjectManagementMessage(false)
+    }, 2000)
+  }
 
           break
         }
       }
+
+  
 
       // ---------- GROUND COLLISION ----------
 
@@ -248,6 +298,7 @@ function Game() {
     x,
     developmentUnlocked,
     scrumUnlocked,
+    projectManagementUnlocked,
   ])
 
   return (
@@ -328,6 +379,38 @@ function Game() {
         <span>✓ ✓ ✓</span>
       </div>
 
+      {/* ---------- PROJECT MANAGEMENT ---------- */}
+
+<div
+  className="pm-stage"
+  style={{
+    left: `${PM_PLAN_X - cameraX}px`,
+  }}
+>
+  <strong>PLAN</strong>
+  <span>Scope</span>
+</div>
+
+<div
+  className="pm-stage"
+  style={{
+    left: `${PM_BUILD_X - cameraX}px`,
+  }}
+>
+  <strong>BUILD</strong>
+  <span>Coordinate</span>
+</div>
+
+<div
+  className="pm-stage"
+  style={{
+    left: `${PM_DELIVER_X - cameraX}px`,
+  }}
+>
+  <strong>DELIVER</strong>
+  <span>Results</span>
+</div>
+
       {/* ---------- DEVELOPMENT MESSAGE ---------- */}
 
       {showUnlockMessage && (
@@ -355,6 +438,20 @@ function Game() {
           </span>
         </div>
       )}
+
+      {/* ---------- PROJECT MANAGEMENT MESSAGE ---------- */}
+
+{showProjectManagementMessage && (
+  <div className="unlock-message">
+    <strong>
+      PROJECT MANAGEMENT UNLOCKED!
+    </strong>
+
+    <span>
+      Planning · Scope · Coordination · Risk · Delivery
+    </span>
+  </div>
+)}
 
       {/* ---------- DEBUG ---------- */}
 
