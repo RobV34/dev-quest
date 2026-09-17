@@ -152,14 +152,7 @@ function App() {
                 <span>PostgreSQL</span>
                 <span>Passport</span>
               </div>
-              <a
-  className="project-link"
-  href="https://github.com/RobV34/https---github.com-JannaColes-S3FinalSprint-tree-RobApr4"
-  target="_blank"
-  rel="noreferrer"
->
-  VIEW CODE ↗
-</a>
+              <p className="project-link-note">GitHub link coming next</p>
             </article>
 
             <article className="project-card">
@@ -179,14 +172,7 @@ function App() {
                 <span>EJS</span>
                 <span>PostgreSQL</span>
               </div>
-              <a
-  className="project-link"
-  href="https://github.com/RobV34/QAP3_FSDB"
-  target="_blank"
-  rel="noreferrer"
->
-  VIEW CODE ↗
-</a>
+              <p className="project-link-note">GitHub link coming next</p>
             </article>
 
             <article className="project-card">
@@ -207,14 +193,7 @@ function App() {
                 <span>JPA</span>
                 <span>PostgreSQL</span>
               </div>
-              <a
-  className="project-link"
-  href="https://github.com/RobV34/DSABST"
-  target="_blank"
-  rel="noreferrer"
->
-  VIEW CODE ↗
-</a>
+              <p className="project-link-note">GitHub link coming next</p>
             </article>
 
             <article className="project-card project-card-featured">
@@ -244,6 +223,72 @@ function App() {
                 VIEW CODE ↗
               </a>
             </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="skills-section" id="skills">
+        <div className="portfolio-container">
+          <p className="section-kicker">UNLOCKED ABILITIES</p>
+          <h2>Skills &amp; Education</h2>
+          <p className="skills-intro">
+            A practical toolkit built across software development, data,
+            collaborative delivery, project work and cloud training.
+          </p>
+
+          <div className="skills-grid">
+            <article className="skill-panel">
+              <span className="skill-code">DEV</span>
+              <h3>Development</h3>
+              <div className="skill-list">
+                <span>JavaScript</span><span>React</span><span>Node.js</span>
+                <span>Express</span><span>Java</span><span>Spring Boot</span>
+                <span>HTML</span><span>CSS</span>
+              </div>
+            </article>
+
+            <article className="skill-panel">
+              <span className="skill-code">DATA</span>
+              <h3>Data &amp; Tools</h3>
+              <div className="skill-list">
+                <span>PostgreSQL</span><span>MongoDB</span><span>Git</span>
+                <span>GitHub</span><span>Docker</span><span>CI/CD</span>
+                <span>GitHub Actions</span>
+              </div>
+            </article>
+
+            <article className="skill-panel">
+              <span className="skill-code">SHIP</span>
+              <h3>Delivery</h3>
+              <div className="skill-list">
+                <span>Scrum</span><span>Agile</span><span>Kanban</span>
+                <span>Project Management</span><span>Jira</span>
+                <span>Trello</span><span>GitHub Projects</span>
+              </div>
+            </article>
+
+            <article className="skill-panel">
+              <span className="skill-code">CLOUD</span>
+              <h3>Cloud Training</h3>
+              <div className="skill-list">
+                <span>AWS Cloud Practitioner</span>
+                <span>AWS Developer</span>
+                <span>AWS Solutions Architect</span>
+              </div>
+            </article>
+          </div>
+
+          <div className="education-card">
+            <div>
+              <p className="education-label">EDUCATION</p>
+              <h3>Software Development</h3>
+              <p className="education-school">Keyin College</p>
+            </div>
+            <div className="education-detail">
+              <span>Full-Stack Development</span><span>Java &amp; JavaScript</span>
+              <span>Database &amp; Data Processing</span><span>UI / UX</span>
+              <span>AWS Cloud Development</span>
+            </div>
           </div>
         </div>
       </section>

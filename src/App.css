@@ -709,3 +709,25 @@ html {
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- SKILLS & EDUCATION ---------- */
+.skills-section { padding: 90px 24px 110px; background: #061326; color: white; }
+.skills-section h2 { margin: 0 0 20px; font-size: clamp(2.3rem, 5vw, 4rem); letter-spacing: 3px; }
+.skills-intro { max-width: 720px; margin: 0 0 38px; color: #b7d9ff; line-height: 1.7; }
+.skills-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.skill-panel { padding: 28px; background: #0b203b; border: 1px solid #294e73; }
+.skill-code { display: inline-block; margin-bottom: 15px; color: #58f5d2; font-size: 10px; font-weight: 800; letter-spacing: 3px; }
+.skill-panel h3 { margin: 0 0 20px; font-size: 1.35rem; }
+.skill-list { display: flex; flex-wrap: wrap; gap: 9px; }
+.skill-list span, .education-detail span { padding: 8px 11px; border: 1px solid #294e73; color: #d6e8ff; font-size: 11px; }
+.skill-list span { background: #07182f; letter-spacing: .8px; }
+.education-card { margin-top: 22px; padding: 30px; display: grid; grid-template-columns: .9fr 1.5fr; gap: 40px; align-items: center; background: #0b203b; border: 1px solid #294e73; border-left: 4px solid #ffd54a; }
+.education-label { margin: 0 0 10px; color: #ffd54a; font-size: 10px; font-weight: 800; letter-spacing: 3px; }
+.education-card h3 { margin: 0 0 8px; font-size: 1.55rem; }
+.education-school { margin: 0; color: #b7d9ff; }
+.education-detail { display: flex; flex-wrap: wrap; gap: 9px; }
+@media (max-width: 720px) {
+  .skills-section { padding-left: 20px; padding-right: 20px; }
+  .skills-grid, .education-card { grid-template-columns: 1fr; }
+  .education-card { gap: 22px; }
+}
