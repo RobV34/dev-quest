@@ -3,20 +3,22 @@
   min-height: 100vh;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+.portfolio-site {
+  width: 100%;
+  min-height: 100vh;
+}
+
 /* ---------- GAME SCREEN ---------- */
 
 .game-screen {
   min-height: 100vh;
   position: relative;
   overflow: hidden;
-
-  background:
-    linear-gradient(
-      to bottom,
-      #061a3a 0%,
-      #123f73 55%,
-      #e38b62 100%
-    );
+  background: linear-gradient(to bottom, #061a3a 0%, #123f73 55%, #e38b62 100%);
 }
 
 /* ---------- HEADER ---------- */
@@ -47,20 +49,29 @@
   color: #b7d9ff;
 }
 
-/* ---------- START BUTTON ---------- */
+/* ---------- GAME ACTIONS ---------- */
 
-.start-button {
+.game-actions {
   margin-top: 35px;
-  padding: 15px 35px;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
 
+.start-button,
+.skip-button {
+  padding: 15px 28px;
   border: 2px solid #58f5d2;
   background: rgba(0, 0, 0, 0.35);
-
   color: #58f5d2;
   font-weight: bold;
-  letter-spacing: 3px;
-
+  letter-spacing: 2px;
   cursor: pointer;
+}
+
+.start-button {
+  margin-top: 0;
 }
 
 .start-button:hover {
@@ -68,15 +79,30 @@
   color: #061a3a;
 }
 
+.skip-button {
+  border-color: #ffd54a;
+  color: #ffd54a;
+}
+
+.skip-button:hover {
+  background: #ffd54a;
+  color: #061a3a;
+}
+
+.game-controls {
+  margin-top: 14px;
+  color: #d6e8ff;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
 /* ---------- GROUND ---------- */
 
 .ground {
   position: absolute;
   bottom: 0;
-
   width: 100%;
   height: 110px;
-
   background: #183f28;
   border-top: 12px solid #57a639;
 }
@@ -85,21 +111,16 @@
 
 .player {
   position: absolute;
-
   width: 55px;
   height: 85px;
-
   z-index: 5;
 }
 
 .player-head {
   width: 42px;
   height: 42px;
-
   margin: 0 auto;
-
   background: #e6a46b;
-
   border: 4px solid #111;
   border-radius: 50%;
 }
@@ -107,16 +128,12 @@
 .player-body {
   width: 55px;
   height: 45px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: #17263c;
-
   border: 4px solid #111;
   border-radius: 8px;
-
   color: white;
   font-weight: bold;
 }
@@ -131,12 +148,9 @@
 .platform-one {
   left: 38%;
   bottom: 110px;
-
   width: 230px;
   height: 65px;
-
   background: #56361f;
-
   border-top: 12px solid #57a639;
   border-left: 4px solid #111;
   border-right: 4px solid #111;
@@ -147,27 +161,18 @@
 
 .skill-pickup {
   position: absolute;
-
   width: 70px;
   height: 70px;
-
   left: 50%;
   top: -95px;
-
   transform: translateX(-50%);
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   border: 3px solid #ffd54a;
   border-radius: 50%;
-
   background: rgba(255, 213, 74, 0.15);
-
-  box-shadow:
-    0 0 10px #ffd54a,
-    0 0 25px #ffd54a;
+  box-shadow: 0 0 10px #ffd54a, 0 0 25px #ffd54a;
 }
 
 .skill-icon {
@@ -180,31 +185,22 @@
 
 .skill-sign {
   position: absolute;
-
   top: 75px;
   left: 50%;
-
   transform: translateX(-50%);
-
   width: 190px;
   padding: 10px;
-
   display: flex;
   flex-direction: column;
-
   text-align: center;
-
   background: #07182f;
   border: 2px solid #294e73;
-
   font-size: 12px;
 }
 
 .skill-sign strong {
   color: #ffd54a;
-
   margin-bottom: 5px;
-
   letter-spacing: 1px;
 }
 
@@ -217,74 +213,54 @@
 
 .unlock-message {
   position: fixed;
-
   top: 20px;
   right: 20px;
-
   z-index: 9999;
-
   display: flex;
   flex-direction: column;
   align-items: center;
-
   padding: 18px 30px;
-
   background: #07182f;
-
   border: 3px solid #ffd54a;
-
-  box-shadow:
-    0 0 10px #ffd54a,
-    0 0 30px rgba(255, 213, 74, 0.6);
-
+  box-shadow: 0 0 10px #ffd54a, 0 0 30px rgba(255, 213, 74, 0.6);
   text-align: center;
 }
 
 .unlock-message strong {
   color: #ffd54a;
-
   font-size: 22px;
   letter-spacing: 2px;
 }
 
 .unlock-message span {
   margin-top: 8px;
-
   color: #d6e8ff;
   font-size: 14px;
 }
+
 /* ---------- SCRUM / AGILE ---------- */
 
 .scrum-area {
   position: absolute;
   right: 25px;
   bottom: 110px;
-
   width: 390px;
   height: 230px;
-
   z-index: 4;
 }
 
 .scrum-platform {
   position: absolute;
-
   width: 115px;
   height: 60px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   background: #07182f;
-
   border: 3px solid #294e73;
   border-top: 8px solid #58f5d2;
-
-  box-shadow:
-    0 0 8px rgba(88, 245, 210, 0.25);
-
+  box-shadow: 0 0 8px rgba(88, 245, 210, 0.25);
   font-size: 11px;
   text-align: center;
 }
@@ -300,48 +276,25 @@
   font-size: 14px;
 }
 
-/* TODO — first step */
-
-.scrum-todo {
-  left: 0;
-  bottom: 0;
-}
-
-/* IN PROGRESS — second step */
-
-.scrum-progress {
-  left: 135px;
-  bottom: 65px;
-}
-
-/* DONE — final step */
-
-.scrum-done {
-  left: 270px;
-  bottom: 130px;
-}
+.scrum-todo { left: 0; bottom: 0; }
+.scrum-progress { left: 135px; bottom: 65px; }
+.scrum-done { left: 270px; bottom: 130px; }
 
 /* ---------- PROJECT MANAGEMENT ---------- */
 
 .pm-stage {
   position: absolute;
   bottom: 110px;
-
   width: 150px;
   height: 75px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   background: #07182f;
   border: 3px solid #294e73;
   border-top: 8px solid #ffd54a;
-
-  box-shadow:
-    0 0 8px rgba(255, 213, 74, 0.25);
-
+  box-shadow: 0 0 8px rgba(255, 213, 74, 0.25);
   text-align: center;
   z-index: 4;
 }
@@ -363,22 +316,16 @@
 .data-stage {
   position: absolute;
   bottom: 110px;
-
   width: 150px;
   height: 75px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   background: #07182f;
   border: 3px solid #294e73;
   border-top: 8px solid #b56cff;
-
-  box-shadow:
-    0 0 8px rgba(181, 108, 255, 0.3);
-
+  box-shadow: 0 0 8px rgba(181, 108, 255, 0.3);
   text-align: center;
   z-index: 4;
 }
@@ -395,23 +342,25 @@
   font-size: 12px;
 }
 
-/* ---------- DATA PICKUP ---------- */
-
 .data-pickup {
   position: absolute;
   top: -65px;
   left: 50%;
   transform: translateX(-50%);
-
   display: flex;
   gap: 8px;
-
   color: #b56cff;
   font-size: 18px;
+  text-shadow: 0 0 8px #b56cff, 0 0 18px #b56cff;
+}
 
-  text-shadow:
-    0 0 8px #b56cff,
-    0 0 18px #b56cff;
+.data-stage-active {
+  border-top-color: #58f5d2;
+  box-shadow: 0 0 10px #58f5d2, 0 0 25px rgba(88, 245, 210, 0.35);
+}
+
+.data-stage-active strong {
+  color: #58f5d2;
 }
 
 /* ---------- PORTFOLIO FINISH ---------- */
@@ -452,9 +401,7 @@
 }
 
 .portfolio-finish-reached {
-  box-shadow:
-    0 0 15px #ffd54a,
-    0 0 35px rgba(255, 213, 74, 0.55);
+  box-shadow: 0 0 15px #ffd54a, 0 0 35px rgba(255, 213, 74, 0.55);
 }
 
 .quest-complete {
@@ -468,10 +415,10 @@
   padding: 20px 34px;
   background: #07182f;
   border: 3px solid #58f5d2;
-  box-shadow:
-    0 0 12px #58f5d2,
-    0 0 35px rgba(88, 245, 210, 0.45);
+  box-shadow: 0 0 12px #58f5d2, 0 0 35px rgba(88, 245, 210, 0.45);
   text-align: center;
+  font: inherit;
+  cursor: pointer;
 }
 
 .quest-complete strong {
@@ -484,4 +431,153 @@
   margin-top: 8px;
   color: #d6e8ff;
   font-size: 14px;
+}
+
+/* ---------- PORTFOLIO CONTENT ---------- */
+
+.portfolio-content,
+.experience-section {
+  position: relative;
+  color: white;
+  padding: 100px 24px;
+}
+
+.portfolio-content {
+  background: #07182f;
+}
+
+.experience-section {
+  background: #0b203b;
+  padding-top: 70px;
+}
+
+.portfolio-container {
+  width: min(1050px, 100%);
+  margin: 0 auto;
+}
+
+.section-kicker {
+  margin: 0 0 10px;
+  color: #58f5d2;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+.portfolio-content h2,
+.experience-section h2 {
+  margin: 0 0 28px;
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  letter-spacing: 3px;
+}
+
+.about-lead {
+  max-width: 900px;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.25rem, 2.3vw, 1.8rem);
+  line-height: 1.55;
+}
+
+.about-copy {
+  max-width: 850px;
+  margin: 24px 0 0;
+  color: #b7d9ff;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.profile-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 34px;
+}
+
+.profile-tags span {
+  padding: 9px 13px;
+  border: 1px solid #294e73;
+  background: #0b203b;
+  color: #d6e8ff;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.experience-card {
+  position: relative;
+  min-height: 250px;
+  padding: 30px;
+  background: #07182f;
+  border: 1px solid #294e73;
+  border-top: 4px solid #ffd54a;
+}
+
+.experience-number {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  color: #294e73;
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.experience-type {
+  margin: 0 0 8px;
+  color: #58f5d2;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.experience-card h3 {
+  margin: 0 0 20px;
+  padding-right: 55px;
+  font-size: 1.5rem;
+}
+
+.experience-card > p:last-child {
+  margin: 0;
+  color: #b7d9ff;
+  line-height: 1.7;
+}
+
+@media (max-width: 720px) {
+  .game-header {
+    padding: 35px 18px 0;
+  }
+
+  .game-header h2 {
+    font-size: 1rem;
+    letter-spacing: 4px;
+  }
+
+  .tagline {
+    letter-spacing: 2px;
+  }
+
+  .game-actions {
+    margin-top: 22px;
+  }
+
+  .experience-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-content,
+  .experience-section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .quest-complete {
+    left: 20px;
+    right: 20px;
+    top: 20px;
+  }
 }

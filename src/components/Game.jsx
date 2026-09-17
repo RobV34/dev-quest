@@ -617,10 +617,18 @@ if (
       {/* ---------- QUEST COMPLETE ---------- */}
 
       {showQuestComplete && (
-        <div className="quest-complete">
+        <button
+          className="quest-complete"
+          type="button"
+          onClick={() => {
+            document
+              .getElementById('about')
+              ?.scrollIntoView({ behavior: 'smooth' })
+          }}
+        >
           <strong>QUEST COMPLETE!</strong>
           <span>Explore My Portfolio ↓</span>
-        </div>
+        </button>
       )}
 
       {/* ---------- DEVELOPMENT MESSAGE ---------- */}
