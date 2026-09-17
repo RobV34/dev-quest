@@ -7,15 +7,25 @@ function Game() {
   const [x, setX] = useState(100)
   const [y, setY] = useState(110)
 
+  // ---------- CAMERA STATE ----------
+
+  const [cameraX, setCameraX] = useState(0)
+
   // ---------- DEVELOPMENT STATE ----------
 
-  const [developmentUnlocked, setDevelopmentUnlocked] = useState(false)
-  const [showUnlockMessage, setShowUnlockMessage] = useState(false)
+  const [developmentUnlocked, setDevelopmentUnlocked] =
+    useState(false)
+
+  const [showUnlockMessage, setShowUnlockMessage] =
+    useState(false)
 
   // ---------- SCRUM / AGILE STATE ----------
 
-  const [scrumUnlocked, setScrumUnlocked] = useState(false)
-  const [showScrumMessage, setShowScrumMessage] = useState(false)
+  const [scrumUnlocked, setScrumUnlocked] =
+    useState(false)
+
+  const [showScrumMessage, setShowScrumMessage] =
+    useState(false)
 
   // ---------- PHYSICS REFS ----------
 
@@ -31,39 +41,53 @@ function Game() {
 
   const PLAYER_WIDTH = 55
 
-  // ---------- DEVELOPMENT PLATFORM ----------
+  // Rob stays around this position once camera starts moving
+  const CAMERA_START = 500
 
-  const PLATFORM_LEFT = 0.38
-  const PLATFORM_WIDTH = 230
-  const PLATFORM_Y = 175
+  // ---------- WORLD POSITIONS ----------
 
-  // ---------- ALL GAME PLATFORMS ----------
+  /*
+    These positions now belong to the GAME WORLD,
+    not to the browser window.
+
+    Development starts at X = 500.
+
+    Scrum starts farther into the world.
+  */
+
+  const DEVELOPMENT_X = 500
+  const DEVELOPMENT_WIDTH = 230
+  const DEVELOPMENT_Y = 175
+
+  const SCRUM_TODO_X = 950
+  const SCRUM_PROGRESS_X = 1085
+  const SCRUM_DONE_X = 1220
+
+  // ---------- PLATFORM DATA ----------
 
   const getPlatforms = () => {
-    const screenWidth = window.innerWidth
-
     return [
       {
         name: 'development',
-        x: screenWidth * 0.38,
-        width: 230,
-        y: 175,
+        x: DEVELOPMENT_X,
+        width: DEVELOPMENT_WIDTH,
+        y: DEVELOPMENT_Y,
       },
       {
         name: 'todo',
-        x: screenWidth - 415,
+        x: SCRUM_TODO_X,
         width: 115,
         y: 170,
       },
       {
         name: 'progress',
-        x: screenWidth - 280,
+        x: SCRUM_PROGRESS_X,
         width: 115,
         y: 235,
       },
       {
         name: 'done',
-        x: screenWidth - 145,
+        x: SCRUM_DONE_X,
         width: 115,
         y: 300,
       },
@@ -75,17 +99,28 @@ function Game() {
   useEffect(() => {
     function handleKeyDown(event) {
       // Move right
-      if (event.key === 'ArrowRight' || event.key === 'd') {
+      if (
+        event.key === 'ArrowRight' ||
+        event.key === 'd'
+      ) {
         setX((currentX) => currentX + 15)
       }
 
       // Move left
-      if (event.key === 'ArrowLeft' || event.key === 'a') {
-        setX((currentX) => Math.max(0, currentX - 15))
+      if (
+        event.key === 'ArrowLeft' ||
+        event.key === 'a'
+      ) {
+        setX((currentX) =>
+          Math.max(0, currentX - 15)
+        )
       }
 
       // Jump
-      if (event.code === 'Space' && isOnGround.current) {
+      if (
+        event.code === 'Space' &&
+        isOnGround.current
+      ) {
         event.preventDefault()
 
         velocityY.current = JUMP_POWER
@@ -93,7 +128,10 @@ function Game() {
       }
     }
 
-    window.addEventListener('keydown', handleKeyDown)
+    window.addEventListener(
+      'keydown',
+      handleKeyDown
+    )
 
     const gameLoop = setInterval(() => {
       const previousY = yRef.current
@@ -105,17 +143,15 @@ function Game() {
 
       // ---------- DEVELOPMENT PICKUP ----------
 
-      const platformX =
-        window.innerWidth * PLATFORM_LEFT
-
       const pickupX =
-        platformX + PLATFORM_WIDTH / 2
+        DEVELOPMENT_X +
+        DEVELOPMENT_WIDTH / 2
 
       const touchingDevelopmentPickup =
         x + PLAYER_WIDTH > pickupX - 35 &&
         x < pickupX + 35 &&
-        yRef.current >= PLATFORM_Y &&
-        yRef.current <= PLATFORM_Y + 100
+        yRef.current >= DEVELOPMENT_Y &&
+        yRef.current <= DEVELOPMENT_Y + 100
 
       if (
         touchingDevelopmentPickup &&
@@ -155,6 +191,7 @@ function Game() {
           yRef.current = platform.y
           velocityY.current = 0
           isOnGround.current = true
+
           landedOnPlatform = true
 
           // ---------- SCRUM COMPLETE ----------
@@ -186,8 +223,17 @@ function Game() {
         isOnGround.current = true
       }
 
-      // Update displayed Y position
+      // ---------- UPDATE PLAYER Y ----------
+
       setY(yRef.current)
+
+      // ---------- CAMERA ----------
+
+      if (x > CAMERA_START) {
+        setCameraX(x - CAMERA_START)
+      } else {
+        setCameraX(0)
+      }
     }, 16)
 
     return () => {
@@ -198,18 +244,29 @@ function Game() {
 
       clearInterval(gameLoop)
     }
-  }, [x, developmentUnlocked, scrumUnlocked])
+  }, [
+    x,
+    developmentUnlocked,
+    scrumUnlocked,
+  ])
 
   return (
     <>
       {/* ---------- PLAYER ---------- */}
 
-      <Player x={x} y={y} />
+      <Player
+        x={x - cameraX}
+        y={y}
+      />
 
       {/* ---------- DEVELOPMENT ---------- */}
 
-      <div className="platform platform-one">
-
+      <div
+        className="platform platform-one"
+        style={{
+          left: `${DEVELOPMENT_X - cameraX}px`,
+        }}
+      >
         {!developmentUnlocked && (
           <div className="skill-pickup">
             <span className="skill-icon">
@@ -219,32 +276,56 @@ function Game() {
         )}
 
         <div className="skill-sign">
-          <strong>DEVELOPMENT</strong>
-          <span>React · Node.js</span>
-          <span>Java · Spring Boot</span>
-        </div>
+          <strong>
+            DEVELOPMENT
+          </strong>
 
+          <span>
+            React · Node.js
+          </span>
+
+          <span>
+            Java · Spring Boot
+          </span>
+        </div>
       </div>
 
       {/* ---------- SCRUM / AGILE ---------- */}
 
-      <div className="scrum-area">
+      <div
+        className="scrum-platform scrum-todo"
+        style={{
+          left: `${SCRUM_TODO_X - cameraX}px`,
+          bottom: '110px',
+        }}
+      >
+        <strong>TODO</strong>
+        <span>▢ ▢ ▢</span>
+      </div>
 
-        <div className="scrum-platform scrum-todo">
-          <strong>TODO</strong>
-          <span>▢ ▢ ▢</span>
-        </div>
+      <div
+        className="scrum-platform scrum-progress"
+        style={{
+          left: `${SCRUM_PROGRESS_X - cameraX}px`,
+          bottom: '175px',
+        }}
+      >
+        <strong>
+          IN PROGRESS
+        </strong>
 
-        <div className="scrum-platform scrum-progress">
-          <strong>IN PROGRESS</strong>
-          <span>▣ ▢ ▢</span>
-        </div>
+        <span>▣ ▢ ▢</span>
+      </div>
 
-        <div className="scrum-platform scrum-done">
-          <strong>DONE</strong>
-          <span>✓ ✓ ✓</span>
-        </div>
-
+      <div
+        className="scrum-platform scrum-done"
+        style={{
+          left: `${SCRUM_DONE_X - cameraX}px`,
+          bottom: '240px',
+        }}
+      >
+        <strong>DONE</strong>
+        <span>✓ ✓ ✓</span>
       </div>
 
       {/* ---------- DEVELOPMENT MESSAGE ---------- */}
@@ -286,7 +367,13 @@ function Game() {
           zIndex: 100,
         }}
       >
-        X: {Math.round(x)} | Y: {Math.round(y)}
+        World X: {Math.round(x)}
+        {' | '}
+        Screen X: {Math.round(x - cameraX)}
+        {' | '}
+        Y: {Math.round(y)}
+        {' | '}
+        Camera: {Math.round(cameraX)}
       </div>
     </>
   )
