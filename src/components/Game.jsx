@@ -4,7 +4,9 @@ import Player from './Player'
 function Game() {
   const [x, setX] = useState(100)
   const [y, setY] = useState(110)
+
   const [developmentUnlocked, setDevelopmentUnlocked] = useState(false)
+  const [showUnlockMessage, setShowUnlockMessage] = useState(false)
 
   const yRef = useRef(110)
   const velocityY = useRef(0)
@@ -63,8 +65,13 @@ function Game() {
         yRef.current <= PLATFORM_Y + 100
 
       // Collect Development skill
-      if (touchingDevelopmentPickup) {
+      if (touchingDevelopmentPickup && !developmentUnlocked) {
         setDevelopmentUnlocked(true)
+        setShowUnlockMessage(true)
+
+        setTimeout(() => {
+          setShowUnlockMessage(false)
+        }, 2000)
       }
 
       // Check horizontal platform collision
@@ -105,19 +112,24 @@ function Game() {
       window.removeEventListener('keydown', handleKeyDown)
       clearInterval(gameLoop)
     }
-}, [x])
+  }, [x])
 
   return (
     <>
+      {/* Player */}
       <Player x={x} y={y} />
 
+      {/* Development Platform */}
       <div className="platform platform-one">
+
+        {/* Development Collectible */}
         {!developmentUnlocked && (
           <div className="skill-pickup">
             <span className="skill-icon">{'</>'}</span>
           </div>
         )}
 
+        {/* Development Sign */}
         <div className="skill-sign">
           <strong>DEVELOPMENT</strong>
           <span>React · Node.js</span>
@@ -125,15 +137,17 @@ function Game() {
         </div>
       </div>
 
-      {developmentUnlocked && (
-  <div className="unlock-message">
-    <strong>DEVELOPMENT UNLOCKED!</strong>
-    <span>React · Node.js · Java · Spring Boot</span>
-  </div>
-)}
+      {/* Unlock Notification */}
+      {showUnlockMessage && (
+        <div className="unlock-message">
+          <strong>DEVELOPMENT UNLOCKED!</strong>
+          <span>
+            React · Node.js · Java · Spring Boot
+          </span>
+        </div>
+      )}
 
-
-      {/* Temporary coordinate display */}
+      {/* Temporary Debug Coordinates */}
       <div
         style={{
           position: 'absolute',
