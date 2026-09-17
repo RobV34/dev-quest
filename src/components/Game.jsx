@@ -35,6 +35,25 @@ useState(false)
 const [showProjectManagementMessage, setShowProjectManagementMessage] =
 useState(false)
 
+// ---------- DATA STATE ----------
+
+const [dataCollected, setDataCollected] =
+  useState(false)
+
+const [showDataMessage, setShowDataMessage] =
+  useState(false)
+   const [databaseLoaded, setDatabaseLoaded] =
+  useState(false)
+
+const [showDatabaseMessage, setShowDatabaseMessage] =
+  useState(false)
+
+const [dataUnlocked, setDataUnlocked] =
+  useState(false)
+
+const [showDataUnlockedMessage, setShowDataUnlockedMessage] =
+  useState(false)
+
   // ---------- PHYSICS REFS ----------
 
   const yRef = useRef(110)
@@ -76,6 +95,12 @@ useState(false)
 const PM_PLAN_X = 1650
 const PM_BUILD_X = 1900
 const PM_DELIVER_X = 2150
+
+// ---------- DATA ----------
+
+const DATA_RAW_X = 2600
+const DATA_DATABASE_X = 2800
+const DATA_INSIGHTS_X = 3000
 
   // ---------- PLATFORM DATA ----------
 
@@ -123,6 +148,26 @@ const PM_DELIVER_X = 2150
       {
         name: 'deliver',
         x: PM_DELIVER_X,
+        width: 150,
+        y: 185,
+      },
+
+      // ---------- DATA ----------
+      {
+        name: 'raw-data',
+        x: DATA_RAW_X,
+        width: 150,
+        y: 185,
+      },
+      {
+        name: 'database',
+        x: DATA_DATABASE_X,
+        width: 150,
+        y: 185,
+      },
+      {
+        name: 'insights',
+        x: DATA_INSIGHTS_X,
         width: 150,
         y: 185,
       },
@@ -199,6 +244,66 @@ const PM_DELIVER_X = 2150
           setShowUnlockMessage(false)
         }, 2000)
       }
+
+      // ---------- DATA PICKUP ----------
+
+const dataPickupX = DATA_RAW_X + 75
+
+const touchingDataPickup =
+  x + PLAYER_WIDTH > dataPickupX - 40 &&
+  x < dataPickupX + 40 &&
+  yRef.current >= 185 &&
+  yRef.current <= 280
+
+if (
+  touchingDataPickup &&
+  !dataCollected
+) {
+  setDataCollected(true)
+  setShowDataMessage(true)
+
+  setTimeout(() => {
+    setShowDataMessage(false)
+  }, 2000)
+}
+
+// ---------- DATABASE ----------
+
+const touchingDatabase =
+  x + PLAYER_WIDTH > DATA_DATABASE_X &&
+  x < DATA_DATABASE_X + 150
+
+if (
+  touchingDatabase &&
+  dataCollected &&
+  !databaseLoaded
+) {
+  setDatabaseLoaded(true)
+  setShowDatabaseMessage(true)
+
+  setTimeout(() => {
+    setShowDatabaseMessage(false)
+  }, 2000)
+}
+
+// ---------- INSIGHTS / DATA COMPLETE ----------
+
+const touchingInsights =
+  x + PLAYER_WIDTH > DATA_INSIGHTS_X &&
+  x < DATA_INSIGHTS_X + 150
+
+if (
+  touchingInsights &&
+  databaseLoaded &&
+  !dataUnlocked
+) {
+  setDataUnlocked(true)
+  setShowDataUnlockedMessage(true)
+
+  setTimeout(() => {
+    setShowDataUnlockedMessage(false)
+  }, 2000)
+}
 
       // ---------- PLATFORM COLLISION ----------
 
@@ -299,6 +404,9 @@ if (
     developmentUnlocked,
     scrumUnlocked,
     projectManagementUnlocked,
+    dataCollected,
+    databaseLoaded,
+    dataUnlocked,
   ])
 
   return (
@@ -411,6 +519,59 @@ if (
   <span>Results</span>
 </div>
 
+{/* ---------- DATA ---------- */}
+
+<div
+  className="data-stage"
+  style={{
+    left: `${DATA_RAW_X - cameraX}px`,
+  }}
+>
+  {!dataCollected && (
+    <div className="data-pickup">
+      <span>●</span>
+      <span>●</span>
+      <span>●</span>
+    </div>
+  )}
+
+  <strong>RAW DATA</strong>
+  <span>01 · 10 · 11</span>
+</div>
+<div
+  className={`data-stage ${
+    databaseLoaded ? 'data-stage-active' : ''
+  }`}
+  style={{
+    left: `${DATA_DATABASE_X - cameraX}px`,
+  }}
+>
+  <strong>
+    {databaseLoaded ? 'DATABASE ✓' : 'DATABASE'}
+  </strong>
+
+  <span>
+    {databaseLoaded ? 'Data Stored' : 'PostgreSQL'}
+  </span>
+</div>
+
+<div
+  className={`data-stage ${
+    dataUnlocked ? 'data-stage-active' : ''
+  }`}
+  style={{
+    left: `${DATA_INSIGHTS_X - cameraX}px`,
+  }}
+>
+  <strong>
+    {dataUnlocked ? 'INSIGHTS ✓' : 'INSIGHTS'}
+  </strong>
+
+  <span>
+    {dataUnlocked ? 'Data Understood' : 'Analyze · Decide'}
+  </span>
+</div>
+
       {/* ---------- DEVELOPMENT MESSAGE ---------- */}
 
       {showUnlockMessage && (
@@ -449,6 +610,48 @@ if (
 
     <span>
       Planning · Scope · Coordination · Risk · Delivery
+    </span>
+  </div>
+)}
+
+{/* ---------- DATA MESSAGE ---------- */}
+
+{showDataMessage && (
+  <div className="unlock-message">
+    <strong>
+      DATA COLLECTED!
+    </strong>
+
+    <span>
+      Send it to the database →
+    </span>
+  </div>
+)}
+
+{/* ---------- DATABASE MESSAGE ---------- */}
+
+{showDatabaseMessage && (
+  <div className="unlock-message">
+    <strong>
+      DATABASE LOADED!
+    </strong>
+
+    <span>
+      PostgreSQL · Data Stored → Analyze
+    </span>
+  </div>
+)}
+
+{/* ---------- DATA UNLOCKED MESSAGE ---------- */}
+
+{showDataUnlockedMessage && (
+  <div className="unlock-message">
+    <strong>
+      DATA UNLOCKED!
+    </strong>
+
+    <span>
+      PostgreSQL · Data Processing · Analysis · Insights
     </span>
   </div>
 )}
