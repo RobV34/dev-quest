@@ -4,6 +4,7 @@ import Player from './Player'
 function Game() {
   const [x, setX] = useState(100)
   const [y, setY] = useState(110)
+  const [developmentUnlocked, setDevelopmentUnlocked] = useState(false)
 
   const yRef = useRef(110)
   const velocityY = useRef(0)
@@ -21,14 +22,17 @@ function Game() {
 
   useEffect(() => {
     function handleKeyDown(event) {
+      // Move right
       if (event.key === 'ArrowRight' || event.key === 'd') {
         setX((currentX) => currentX + 15)
       }
 
+      // Move left
       if (event.key === 'ArrowLeft' || event.key === 'a') {
         setX((currentX) => Math.max(0, currentX - 15))
       }
 
+      // Jump
       if (event.code === 'Space' && isOnGround.current) {
         event.preventDefault()
 
@@ -42,15 +46,33 @@ function Game() {
     const gameLoop = setInterval(() => {
       const previousY = yRef.current
 
+      // Apply gravity
       velocityY.current += GRAVITY
       yRef.current += velocityY.current
 
+      // Get Development platform position
       const platformX = window.innerWidth * PLATFORM_LEFT
 
+      // Development skill pickup position
+      const pickupX = platformX + PLATFORM_WIDTH / 2
+
+      const touchingDevelopmentPickup =
+        x + PLAYER_WIDTH > pickupX - 35 &&
+        x < pickupX + 35 &&
+        yRef.current >= PLATFORM_Y &&
+        yRef.current <= PLATFORM_Y + 100
+
+      // Collect Development skill
+      if (touchingDevelopmentPickup) {
+        setDevelopmentUnlocked(true)
+      }
+
+      // Check horizontal platform collision
       const touchingPlatformHorizontally =
         x + PLAYER_WIDTH > platformX &&
         x < platformX + PLATFORM_WIDTH
 
+      // Check whether Rob crossed the platform top
       const crossedPlatformTop =
         previousY >= PLATFORM_Y &&
         yRef.current <= PLATFORM_Y
@@ -75,6 +97,7 @@ function Game() {
         isOnGround.current = true
       }
 
+      // Update React state
       setY(yRef.current)
     }, 16)
 
@@ -82,16 +105,18 @@ function Game() {
       window.removeEventListener('keydown', handleKeyDown)
       clearInterval(gameLoop)
     }
-  }, [x])
+}, [x])
 
   return (
     <>
       <Player x={x} y={y} />
 
       <div className="platform platform-one">
-        <div className="skill-pickup">
-          <span className="skill-icon">{'</>'}</span>
-        </div>
+        {!developmentUnlocked && (
+          <div className="skill-pickup">
+            <span className="skill-icon">{'</>'}</span>
+          </div>
+        )}
 
         <div className="skill-sign">
           <strong>DEVELOPMENT</strong>
@@ -100,6 +125,15 @@ function Game() {
         </div>
       </div>
 
+      {developmentUnlocked && (
+  <div className="unlock-message">
+    <strong>DEVELOPMENT UNLOCKED!</strong>
+    <span>React · Node.js · Java · Spring Boot</span>
+  </div>
+)}
+
+
+      {/* Temporary coordinate display */}
       <div
         style={{
           position: 'absolute',
