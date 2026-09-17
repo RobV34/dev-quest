@@ -413,3 +413,75 @@
     0 0 8px #b56cff,
     0 0 18px #b56cff;
 }
+
+/* ---------- PORTFOLIO FINISH ---------- */
+
+.portfolio-finish {
+  position: absolute;
+  bottom: 110px;
+  width: 180px;
+  height: 95px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #07182f;
+  border: 3px solid #294e73;
+  border-top: 8px solid #ffd54a;
+  box-shadow: 0 0 12px rgba(255, 213, 74, 0.35);
+  text-align: center;
+  z-index: 4;
+}
+
+.portfolio-finish strong {
+  color: #ffd54a;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+.portfolio-finish span {
+  margin-top: 6px;
+  color: #d6e8ff;
+  font-size: 12px;
+}
+
+.finish-flag {
+  position: absolute;
+  top: -58px;
+  font-size: 42px;
+}
+
+.portfolio-finish-reached {
+  box-shadow:
+    0 0 15px #ffd54a,
+    0 0 35px rgba(255, 213, 74, 0.55);
+}
+
+.quest-complete {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 34px;
+  background: #07182f;
+  border: 3px solid #58f5d2;
+  box-shadow:
+    0 0 12px #58f5d2,
+    0 0 35px rgba(88, 245, 210, 0.45);
+  text-align: center;
+}
+
+.quest-complete strong {
+  color: #58f5d2;
+  font-size: 24px;
+  letter-spacing: 2px;
+}
+
+.quest-complete span {
+  margin-top: 8px;
+  color: #d6e8ff;
+  font-size: 14px;
+}

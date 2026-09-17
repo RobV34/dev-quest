@@ -54,6 +54,14 @@ const [dataUnlocked, setDataUnlocked] =
 const [showDataUnlockedMessage, setShowDataUnlockedMessage] =
   useState(false)
 
+// ---------- PORTFOLIO STATE ----------
+
+const [portfolioReached, setPortfolioReached] =
+  useState(false)
+
+const [showQuestComplete, setShowQuestComplete] =
+  useState(false)
+
   // ---------- PHYSICS REFS ----------
 
   const yRef = useRef(110)
@@ -101,6 +109,10 @@ const PM_DELIVER_X = 2150
 const DATA_RAW_X = 2600
 const DATA_DATABASE_X = 2800
 const DATA_INSIGHTS_X = 3000
+
+// ---------- PORTFOLIO FINISH ----------
+
+const PORTFOLIO_X = 3500
 
   // ---------- PLATFORM DATA ----------
 
@@ -305,6 +317,20 @@ if (
   }, 2000)
 }
 
+// ---------- PORTFOLIO FINISH ----------
+
+const touchingPortfolio =
+  x + PLAYER_WIDTH > PORTFOLIO_X &&
+  x < PORTFOLIO_X + 180
+
+if (
+  touchingPortfolio &&
+  !portfolioReached
+) {
+  setPortfolioReached(true)
+  setShowQuestComplete(true)
+}
+
       // ---------- PLATFORM COLLISION ----------
 
       const platforms = getPlatforms()
@@ -407,6 +433,7 @@ if (
     dataCollected,
     databaseLoaded,
     dataUnlocked,
+    portfolioReached,
   ])
 
   return (
@@ -571,6 +598,30 @@ if (
     {dataUnlocked ? 'Data Understood' : 'Analyze · Decide'}
   </span>
 </div>
+
+      {/* ---------- PORTFOLIO FINISH ---------- */}
+
+      <div
+        className={`portfolio-finish ${
+          portfolioReached ? 'portfolio-finish-reached' : ''
+        }`}
+        style={{
+          left: `${PORTFOLIO_X - cameraX}px`,
+        }}
+      >
+        <div className="finish-flag">🏁</div>
+        <strong>PORTFOLIO</strong>
+        <span>Finish the quest</span>
+      </div>
+
+      {/* ---------- QUEST COMPLETE ---------- */}
+
+      {showQuestComplete && (
+        <div className="quest-complete">
+          <strong>QUEST COMPLETE!</strong>
+          <span>Explore My Portfolio ↓</span>
+        </div>
+      )}
 
       {/* ---------- DEVELOPMENT MESSAGE ---------- */}
 
