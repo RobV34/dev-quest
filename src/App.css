@@ -581,3 +581,131 @@ html {
     top: 20px;
   }
 }
+
+
+/* ---------- PROJECTS ---------- */
+
+.projects-section {
+  position: relative;
+  padding: 90px 24px 110px;
+  background: #07182f;
+  color: white;
+}
+
+.projects-section h2 {
+  margin: 0 0 20px;
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  letter-spacing: 3px;
+}
+
+.projects-intro {
+  max-width: 720px;
+  margin: 0 0 38px;
+  color: #b7d9ff;
+  line-height: 1.7;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.project-card {
+  min-height: 330px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  background: #0b203b;
+  border: 1px solid #294e73;
+  border-top: 4px solid #58f5d2;
+}
+
+.project-card-featured {
+  border-top-color: #ffd54a;
+  box-shadow: 0 0 25px rgba(255, 213, 74, 0.08);
+}
+
+.project-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.project-number {
+  color: #294e73;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.project-status {
+  color: #58f5d2;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.project-card-featured .project-status {
+  color: #ffd54a;
+}
+
+.project-card h3 {
+  margin: 18px 0 14px;
+  font-size: 1.65rem;
+}
+
+.project-card > p:not(.project-link-note) {
+  margin: 0;
+  color: #b7d9ff;
+  line-height: 1.7;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.project-tech span {
+  padding: 7px 10px;
+  border: 1px solid #294e73;
+  color: #d6e8ff;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.project-link,
+.project-link-note {
+  margin-top: auto;
+  padding-top: 26px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.project-link {
+  width: fit-content;
+  color: #58f5d2;
+  text-decoration: none;
+}
+
+.project-link:hover {
+  text-decoration: underline;
+}
+
+.project-link-note {
+  color: #56789b;
+}
+
+@media (max-width: 720px) {
+  .projects-section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}

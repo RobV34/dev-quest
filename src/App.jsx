@@ -122,6 +122,131 @@ function App() {
           </div>
         </div>
       </section>
+
+      <section className="projects-section" id="projects">
+        <div className="portfolio-container">
+          <p className="section-kicker">BUILT &amp; SHIPPED</p>
+          <h2>Projects</h2>
+
+          <p className="projects-intro">
+            A selection of full-stack and application development projects
+            spanning JavaScript, React, Node.js, PostgreSQL and Spring Boot.
+          </p>
+
+          <div className="projects-grid">
+            <article className="project-card">
+              <div className="project-topline">
+                <span className="project-number">01</span>
+                <span className="project-status">FULL STACK</span>
+              </div>
+              <h3>Travel Guru</h3>
+              <p>
+                Travel application with user and admin authentication, resort
+                browsing and keyword search, role-based access, and persistent
+                PostgreSQL data.
+              </p>
+              <div className="project-tech">
+                <span>Node.js</span>
+                <span>Express</span>
+                <span>EJS</span>
+                <span>PostgreSQL</span>
+                <span>Passport</span>
+              </div>
+              <a
+  className="project-link"
+  href="https://github.com/RobV34/https---github.com-JannaColes-S3FinalSprint-tree-RobApr4"
+  target="_blank"
+  rel="noreferrer"
+>
+  VIEW CODE ↗
+</a>
+            </article>
+
+            <article className="project-card">
+              <div className="project-topline">
+                <span className="project-number">02</span>
+                <span className="project-status">CRUD APPLICATION</span>
+              </div>
+              <h3>Martha&apos;s Good Eats</h3>
+              <p>
+                Restaurant menu management application with a PostgreSQL data
+                layer and complete create, read, update and delete workflows
+                for menu items.
+              </p>
+              <div className="project-tech">
+                <span>Node.js</span>
+                <span>Express</span>
+                <span>EJS</span>
+                <span>PostgreSQL</span>
+              </div>
+              <a
+  className="project-link"
+  href="https://github.com/RobV34/QAP3_FSDB"
+  target="_blank"
+  rel="noreferrer"
+>
+  VIEW CODE ↗
+</a>
+            </article>
+
+            <article className="project-card">
+              <div className="project-topline">
+                <span className="project-number">03</span>
+                <span className="project-status">JAVA / DATA STRUCTURES</span>
+              </div>
+              <h3>BST TreeApp</h3>
+              <p>
+                Spring Boot application that builds binary search trees from
+                user-entered numbers, stores previous trees, and displays the
+                resulting tree structure.
+              </p>
+              <div className="project-tech">
+                <span>Java</span>
+                <span>Spring Boot</span>
+                <span>Thymeleaf</span>
+                <span>JPA</span>
+                <span>PostgreSQL</span>
+              </div>
+              <a
+  className="project-link"
+  href="https://github.com/RobV34/DSABST"
+  target="_blank"
+  rel="noreferrer"
+>
+  VIEW CODE ↗
+</a>
+            </article>
+
+            <article className="project-card project-card-featured">
+              <div className="project-topline">
+                <span className="project-number">04</span>
+                <span className="project-status">YOU ARE HERE</span>
+              </div>
+              <h3>Dev Quest</h3>
+              <p>
+                Interactive portfolio experience built as a side-scrolling
+                React game. Players progress through Development, Scrum,
+                Project Management and Data before unlocking the portfolio.
+              </p>
+              <div className="project-tech">
+                <span>React</span>
+                <span>Vite</span>
+                <span>JavaScript</span>
+                <span>CSS</span>
+                <span>Git</span>
+              </div>
+              <a
+                className="project-link"
+                href="https://github.com/RobV34/dev-quest"
+                target="_blank"
+                rel="noreferrer"
+              >
+                VIEW CODE ↗
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
     </main>
   )
 }
