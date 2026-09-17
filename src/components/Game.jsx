@@ -2,22 +2,27 @@ import { useEffect, useRef, useState } from 'react'
 import Player from './Player'
 
 function Game() {
+  // Player position
   const [x, setX] = useState(100)
   const [y, setY] = useState(110)
 
+  // Development collectible
   const [developmentUnlocked, setDevelopmentUnlocked] = useState(false)
   const [showUnlockMessage, setShowUnlockMessage] = useState(false)
 
+  // Physics refs
   const yRef = useRef(110)
   const velocityY = useRef(0)
   const isOnGround = useRef(true)
 
+  // Game constants
   const GROUND_Y = 110
   const GRAVITY = -0.7
   const JUMP_POWER = 13
 
   const PLAYER_WIDTH = 55
 
+  // Development platform
   const PLATFORM_LEFT = 0.38
   const PLATFORM_WIDTH = 230
   const PLATFORM_Y = 175
@@ -52,11 +57,12 @@ function Game() {
       velocityY.current += GRAVITY
       yRef.current += velocityY.current
 
-      // Get Development platform position
+      // Development platform position
       const platformX = window.innerWidth * PLATFORM_LEFT
 
-      // Development skill pickup position
-      const pickupX = platformX + PLATFORM_WIDTH / 2
+      // Development pickup position
+      const pickupX =
+        platformX + PLATFORM_WIDTH / 2
 
       const touchingDevelopmentPickup =
         x + PLAYER_WIDTH > pickupX - 35 &&
@@ -65,7 +71,10 @@ function Game() {
         yRef.current <= PLATFORM_Y + 100
 
       // Collect Development skill
-      if (touchingDevelopmentPickup && !developmentUnlocked) {
+      if (
+        touchingDevelopmentPickup &&
+        !developmentUnlocked
+      ) {
         setDevelopmentUnlocked(true)
         setShowUnlockMessage(true)
 
@@ -74,17 +83,17 @@ function Game() {
         }, 2000)
       }
 
-      // Check horizontal platform collision
+      // Development platform collision
       const touchingPlatformHorizontally =
         x + PLAYER_WIDTH > platformX &&
         x < platformX + PLATFORM_WIDTH
 
-      // Check whether Rob crossed the platform top
       const crossedPlatformTop =
         previousY >= PLATFORM_Y &&
         yRef.current <= PLATFORM_Y
 
-      const falling = velocityY.current <= 0
+      const falling =
+        velocityY.current <= 0
 
       // Land on Development platform
       if (
@@ -104,50 +113,85 @@ function Game() {
         isOnGround.current = true
       }
 
-      // Update React state
+      // Update displayed Y position
       setY(yRef.current)
     }, 16)
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener(
+        'keydown',
+        handleKeyDown
+      )
+
       clearInterval(gameLoop)
     }
-  }, [x])
+  }, [x, developmentUnlocked])
 
   return (
     <>
-      {/* Player */}
+      {/* ---------- PLAYER ---------- */}
+
       <Player x={x} y={y} />
 
-      {/* Development Platform */}
+      {/* ---------- DEVELOPMENT ---------- */}
+
       <div className="platform platform-one">
 
-        {/* Development Collectible */}
         {!developmentUnlocked && (
           <div className="skill-pickup">
-            <span className="skill-icon">{'</>'}</span>
+            <span className="skill-icon">
+              {'</>'}
+            </span>
           </div>
         )}
 
-        {/* Development Sign */}
         <div className="skill-sign">
           <strong>DEVELOPMENT</strong>
           <span>React · Node.js</span>
           <span>Java · Spring Boot</span>
         </div>
+
       </div>
 
-      {/* Unlock Notification */}
+      {/* ---------- SCRUM / AGILE ---------- */}
+
+      <div className="scrum-area">
+
+        <div className="scrum-platform scrum-todo">
+          <strong>TODO</strong>
+          <span>▢ ▢ ▢</span>
+        </div>
+
+        <div className="scrum-platform scrum-progress">
+          <strong>IN PROGRESS</strong>
+          <span>▣ ▢ ▢</span>
+        </div>
+
+        <div className="scrum-platform scrum-done">
+          <strong>DONE</strong>
+          <span>✓ ✓ ✓</span>
+        </div>
+
+      </div>
+
+      {/* ---------- UNLOCK MESSAGE ---------- */}
+
       {showUnlockMessage && (
         <div className="unlock-message">
-          <strong>DEVELOPMENT UNLOCKED!</strong>
+
+          <strong>
+            DEVELOPMENT UNLOCKED!
+          </strong>
+
           <span>
             React · Node.js · Java · Spring Boot
           </span>
+
         </div>
       )}
 
-      {/* Temporary Debug Coordinates */}
+      {/* ---------- DEBUG ---------- */}
+
       <div
         style={{
           position: 'absolute',
