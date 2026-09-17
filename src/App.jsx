@@ -21,18 +21,6 @@ function App() {
 
       <Game />
 
-      <div className="platform platform-one">
-  <div className="skill-pickup">
-    <span className="skill-icon">{'</>'}</span>
-  </div>
-
-  <div className="skill-sign">
-    <strong>DEVELOPMENT</strong>
-    <span>React · Node.js</span>
-    <span>Java · Spring Boot</span>
-  </div>
-</div>
-
       <div className="ground"></div>
 
     </main>

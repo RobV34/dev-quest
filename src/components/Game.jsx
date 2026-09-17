@@ -5,29 +5,30 @@ function Game() {
   const [x, setX] = useState(100)
   const [y, setY] = useState(110)
 
-  // Keep track of Rob's vertical position and speed
   const yRef = useRef(110)
   const velocityY = useRef(0)
   const isOnGround = useRef(true)
 
-  // Game physics
   const GROUND_Y = 110
   const GRAVITY = -0.7
   const JUMP_POWER = 13
 
+  const PLAYER_WIDTH = 55
+
+  const PLATFORM_LEFT = 0.38
+  const PLATFORM_WIDTH = 230
+  const PLATFORM_Y = 175
+
   useEffect(() => {
     function handleKeyDown(event) {
-      // Move right
       if (event.key === 'ArrowRight' || event.key === 'd') {
         setX((currentX) => currentX + 15)
       }
 
-      // Move left
       if (event.key === 'ArrowLeft' || event.key === 'a') {
         setX((currentX) => Math.max(0, currentX - 15))
       }
 
-      // Jump
       if (event.code === 'Space' && isOnGround.current) {
         event.preventDefault()
 
@@ -38,22 +39,42 @@ function Game() {
 
     window.addEventListener('keydown', handleKeyDown)
 
-    // Main game loop
     const gameLoop = setInterval(() => {
-      // Apply gravity
-      velocityY.current += GRAVITY
+      const previousY = yRef.current
 
-      // Apply vertical velocity
+      velocityY.current += GRAVITY
       yRef.current += velocityY.current
 
-      // Ground collision
-      if (yRef.current <= GROUND_Y) {
+      const platformX = window.innerWidth * PLATFORM_LEFT
+
+      const touchingPlatformHorizontally =
+        x + PLAYER_WIDTH > platformX &&
+        x < platformX + PLATFORM_WIDTH
+
+      const crossedPlatformTop =
+        previousY >= PLATFORM_Y &&
+        yRef.current <= PLATFORM_Y
+
+      const falling = velocityY.current <= 0
+
+      // Land on Development platform
+      if (
+        touchingPlatformHorizontally &&
+        falling &&
+        crossedPlatformTop
+      ) {
+        yRef.current = PLATFORM_Y
+        velocityY.current = 0
+        isOnGround.current = true
+      }
+
+      // Land on ground
+      else if (yRef.current <= GROUND_Y) {
         yRef.current = GROUND_Y
         velocityY.current = 0
         isOnGround.current = true
       }
 
-      // Update React state
       setY(yRef.current)
     }, 16)
 
@@ -61,13 +82,24 @@ function Game() {
       window.removeEventListener('keydown', handleKeyDown)
       clearInterval(gameLoop)
     }
-  }, [])
+  }, [x])
 
   return (
     <>
       <Player x={x} y={y} />
 
-      {/* Temporary debugging display */}
+      <div className="platform platform-one">
+        <div className="skill-pickup">
+          <span className="skill-icon">{'</>'}</span>
+        </div>
+
+        <div className="skill-sign">
+          <strong>DEVELOPMENT</strong>
+          <span>React · Node.js</span>
+          <span>Java · Spring Boot</span>
+        </div>
+      </div>
+
       <div
         style={{
           position: 'absolute',
