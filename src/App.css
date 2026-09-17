@@ -731,3 +731,96 @@ html {
   .skills-grid, .education-card { grid-template-columns: 1fr; }
   .education-card { gap: 22px; }
 }
+
+/* ---------- CONTACT ---------- */
+.contact-section {
+  padding: 110px 24px 42px;
+  background: #07182f;
+  color: white;
+}
+
+.contact-container {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+.contact-section h2 {
+  max-width: 760px;
+  margin: 0 0 20px;
+  font-size: clamp(2.6rem, 6vw, 4.8rem);
+  letter-spacing: 2px;
+}
+
+.contact-copy {
+  max-width: 720px;
+  margin: 0;
+  color: #b7d9ff;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.contact-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+  padding: 14px 20px;
+  border: 1px solid #58f5d2;
+  color: #58f5d2;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.contact-button:hover {
+  transform: translateY(-2px);
+  background: #58f5d2;
+  color: #07182f;
+}
+
+.contact-button-primary {
+  background: #58f5d2;
+  color: #07182f;
+}
+
+.site-footer {
+  margin-top: 90px;
+  padding-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 14px;
+  border-top: 1px solid #294e73;
+  color: #6f91b4;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 720px) {
+  .contact-section {
+    padding: 85px 20px 32px;
+  }
+
+  .contact-actions {
+    flex-direction: column;
+  }
+
+  .contact-button {
+    width: 100%;
+  }
+
+  .site-footer {
+    margin-top: 65px;
+    flex-direction: column;
+  }
+}

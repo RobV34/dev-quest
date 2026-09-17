@@ -251,7 +251,7 @@ function App() {
               <span className="skill-code">DATA</span>
               <h3>Data &amp; Tools</h3>
               <div className="skill-list">
-                <span>PostgreSQL</span><span>MongoDB</span><span>Git</span>
+                <span>PostgreSQL</span><span>SQL</span><span>Git</span>
                 <span>GitHub</span><span>Docker</span><span>CI/CD</span>
                 <span>GitHub Actions</span>
               </div>
@@ -290,6 +290,37 @@ function App() {
               <span>AWS Cloud Development</span>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="contact-section" id="contact">
+        <div className="contact-container">
+          <p className="section-kicker">READY FOR THE NEXT QUEST?</p>
+          <h2>Let&apos;s Build Something</h2>
+          <p className="contact-copy">
+            I&apos;m open to opportunities where I can bring together software
+            development, project delivery, data, and business experience.
+          </p>
+
+          <div className="contact-actions">
+            <a className="contact-button contact-button-primary" href="mailto:rcvatcher@gmail.com">
+              EMAIL ME →
+            </a>
+            <a
+              className="contact-button"
+              href="https://github.com/RobV34"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GITHUB ↗
+            </a>
+          </div>
+
+          <footer className="site-footer">
+            <span>ROB VATCHER</span>
+            <span>SOFTWARE DEVELOPER</span>
+            <span>ST. JOHN&apos;S, NL</span>
+          </footer>
         </div>
       </section>
     </main>
