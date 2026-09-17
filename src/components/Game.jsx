@@ -2,30 +2,75 @@ import { useEffect, useRef, useState } from 'react'
 import Player from './Player'
 
 function Game() {
-  // Player position
+  // ---------- PLAYER STATE ----------
+
   const [x, setX] = useState(100)
   const [y, setY] = useState(110)
 
-  // Development collectible
+  // ---------- DEVELOPMENT STATE ----------
+
   const [developmentUnlocked, setDevelopmentUnlocked] = useState(false)
   const [showUnlockMessage, setShowUnlockMessage] = useState(false)
 
-  // Physics refs
+  // ---------- SCRUM / AGILE STATE ----------
+
+  const [scrumUnlocked, setScrumUnlocked] = useState(false)
+  const [showScrumMessage, setShowScrumMessage] = useState(false)
+
+  // ---------- PHYSICS REFS ----------
+
   const yRef = useRef(110)
   const velocityY = useRef(0)
   const isOnGround = useRef(true)
 
-  // Game constants
+  // ---------- GAME CONSTANTS ----------
+
   const GROUND_Y = 110
   const GRAVITY = -0.7
   const JUMP_POWER = 13
 
   const PLAYER_WIDTH = 55
 
-  // Development platform
+  // ---------- DEVELOPMENT PLATFORM ----------
+
   const PLATFORM_LEFT = 0.38
   const PLATFORM_WIDTH = 230
   const PLATFORM_Y = 175
+
+  // ---------- ALL GAME PLATFORMS ----------
+
+  const getPlatforms = () => {
+    const screenWidth = window.innerWidth
+
+    return [
+      {
+        name: 'development',
+        x: screenWidth * 0.38,
+        width: 230,
+        y: 175,
+      },
+      {
+        name: 'todo',
+        x: screenWidth - 415,
+        width: 115,
+        y: 170,
+      },
+      {
+        name: 'progress',
+        x: screenWidth - 280,
+        width: 115,
+        y: 235,
+      },
+      {
+        name: 'done',
+        x: screenWidth - 145,
+        width: 115,
+        y: 300,
+      },
+    ]
+  }
+
+  // ---------- GAME LOOP ----------
 
   useEffect(() => {
     function handleKeyDown(event) {
@@ -53,14 +98,16 @@ function Game() {
     const gameLoop = setInterval(() => {
       const previousY = yRef.current
 
-      // Apply gravity
+      // ---------- GRAVITY ----------
+
       velocityY.current += GRAVITY
       yRef.current += velocityY.current
 
-      // Development platform position
-      const platformX = window.innerWidth * PLATFORM_LEFT
+      // ---------- DEVELOPMENT PICKUP ----------
 
-      // Development pickup position
+      const platformX =
+        window.innerWidth * PLATFORM_LEFT
+
       const pickupX =
         platformX + PLATFORM_WIDTH / 2
 
@@ -70,7 +117,6 @@ function Game() {
         yRef.current >= PLATFORM_Y &&
         yRef.current <= PLATFORM_Y + 100
 
-      // Collect Development skill
       if (
         touchingDevelopmentPickup &&
         !developmentUnlocked
@@ -83,31 +129,58 @@ function Game() {
         }, 2000)
       }
 
-      // Development platform collision
-      const touchingPlatformHorizontally =
-        x + PLAYER_WIDTH > platformX &&
-        x < platformX + PLATFORM_WIDTH
+      // ---------- PLATFORM COLLISION ----------
 
-      const crossedPlatformTop =
-        previousY >= PLATFORM_Y &&
-        yRef.current <= PLATFORM_Y
+      const platforms = getPlatforms()
 
       const falling =
         velocityY.current <= 0
 
-      // Land on Development platform
-      if (
-        touchingPlatformHorizontally &&
-        falling &&
-        crossedPlatformTop
-      ) {
-        yRef.current = PLATFORM_Y
-        velocityY.current = 0
-        isOnGround.current = true
+      let landedOnPlatform = false
+
+      for (const platform of platforms) {
+        const touchingHorizontally =
+          x + PLAYER_WIDTH > platform.x &&
+          x < platform.x + platform.width
+
+        const crossedPlatformTop =
+          previousY >= platform.y &&
+          yRef.current <= platform.y
+
+        if (
+          touchingHorizontally &&
+          falling &&
+          crossedPlatformTop
+        ) {
+          yRef.current = platform.y
+          velocityY.current = 0
+          isOnGround.current = true
+          landedOnPlatform = true
+
+          // ---------- SCRUM COMPLETE ----------
+
+          if (
+            platform.name === 'done' &&
+            !scrumUnlocked
+          ) {
+            setScrumUnlocked(true)
+            setShowScrumMessage(true)
+
+            setTimeout(() => {
+              setShowScrumMessage(false)
+            }, 2000)
+          }
+
+          break
+        }
       }
 
-      // Land on ground
-      else if (yRef.current <= GROUND_Y) {
+      // ---------- GROUND COLLISION ----------
+
+      if (
+        !landedOnPlatform &&
+        yRef.current <= GROUND_Y
+      ) {
         yRef.current = GROUND_Y
         velocityY.current = 0
         isOnGround.current = true
@@ -125,7 +198,7 @@ function Game() {
 
       clearInterval(gameLoop)
     }
-  }, [x, developmentUnlocked])
+  }, [x, developmentUnlocked, scrumUnlocked])
 
   return (
     <>
@@ -174,11 +247,10 @@ function Game() {
 
       </div>
 
-      {/* ---------- UNLOCK MESSAGE ---------- */}
+      {/* ---------- DEVELOPMENT MESSAGE ---------- */}
 
       {showUnlockMessage && (
         <div className="unlock-message">
-
           <strong>
             DEVELOPMENT UNLOCKED!
           </strong>
@@ -186,7 +258,20 @@ function Game() {
           <span>
             React · Node.js · Java · Spring Boot
           </span>
+        </div>
+      )}
 
+      {/* ---------- SCRUM MESSAGE ---------- */}
+
+      {showScrumMessage && (
+        <div className="unlock-message">
+          <strong>
+            SCRUM / AGILE UNLOCKED!
+          </strong>
+
+          <span>
+            Sprint Planning · Backlog · Daily Scrum · Retrospectives
+          </span>
         </div>
       )}
 
