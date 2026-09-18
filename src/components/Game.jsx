@@ -77,7 +77,7 @@ const [showQuestComplete, setShowQuestComplete] =
   const PLAYER_WIDTH = 55
 
   // Rob stays around this position once camera starts moving
-  const CAMERA_START = 500
+  const CAMERA_START = Math.min(500, window.innerWidth * 0.45)
 
   // ---------- WORLD POSITIONS ----------
 
