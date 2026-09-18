@@ -18,9 +18,7 @@ function App() {
           <p className="tagline">
             BUILD · SOLVE · IMPROVE · REPEAT
           </p>
-          <span className="start-button">
-          PRESS SPACE TO JUMP
-          </span>
+          
           <div className="game-actions">
             
 
