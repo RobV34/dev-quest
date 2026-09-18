@@ -18,11 +18,11 @@ function App() {
           <p className="tagline">
             BUILD · SOLVE · IMPROVE · REPEAT
           </p>
-
+          <span className="start-button">
+          PRESS SPACE TO JUMP
+          </span>
           <div className="game-actions">
-            <button className="start-button" type="button">
-              PRESS SPACE TO JUMP
-            </button>
+            
 
             <button
               className="skip-button"
@@ -137,7 +137,7 @@ function App() {
             <article className="project-card">
               <div className="project-topline">
                 <span className="project-number">01</span>
-                <span className="project-status">FULL STACK</span>
+                <span className="project-status"> COLLABORATIVE FULL-STACK</span>
               </div>
               <h3>Travel Guru</h3>
               <p>
